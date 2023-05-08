@@ -1,0 +1,57 @@
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+class Person {
+    String name;
+    int age;
+    List<String> interests;
+
+    Person(String name, int age, List<String> interests) {
+        this.name = name;
+        this.age = age;
+        this.interests = interests;
+    }
+
+    @Override
+    public String toString() {
+        return "Person{name='" + name + "', age=" + age + ", interests=" + interests + '}';
+    }
+}
+
+class DatingApp {
+    void connectPeople(Person[] people) {
+        for (int i = 0; i < people.length; i++) {
+            for (int j = i + 1; j < people.length; j++) {
+                if (haveCommonInterests(people[i], people[j])) {
+                    System.out.println("Connecting " + people[i].name + " and " + people[j].name);
+                }
+            }
+        }
+    }
+
+    boolean haveCommonInterests(Person person1, Person person2) {
+        for (String interest1 : person1.interests) {
+            for (String interest2 : person2.interests) {
+                if (interest1.equals(interest2)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+}
+
+public class DatingAppDemo {
+    public static void main(String[] args) {
+        Person[] people = new Person[]{
+                new Person("Alice", 25, new ArrayList<>(Arrays.asList("reading", "cooking", "travel"))),
+                new Person("Bob", 30, new ArrayList<>(Arrays.asList("sports", "travel", "hiking"))),
+                new Person("Charlie", 28, new ArrayList<>(Arrays.asList("music", "reading", "gardening"))),
+                new Person("Diana", 35, new ArrayList<>(Arrays.asList("cooking", "hiking", "travel"))),
+        };
+
+        DatingApp datingApp = new DatingApp();
+        datingApp.connectPeople(people);
+    }
+}
